@@ -1,8 +1,6 @@
-// API de tickets — almacenamiento en memoria para demo
-let store = globalThis.__CITYPARK_STORE__ || { seq: 1, items: [] };
-if (!globalThis.__CITYPARK_STORE__) {
-  globalThis.__CITYPARK_STORE__ = store;
-}
+import { getStore } from '../../../lib/store.js';
+
+let store = getStore();
 
 export async function GET() {
   const items = store.items.sort((a, b) => b.createdAt - a.createdAt);
@@ -25,6 +23,7 @@ export async function POST(req) {
     contacto: (body.contacto || "").slice(0, 120),
     estado: "Open",
     createdAt: now,
+    comentarios: [],
   };
 
   if (!ticket.servicio || !ticket.tipo) {

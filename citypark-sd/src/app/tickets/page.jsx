@@ -59,7 +59,10 @@ export default function BoardPage(){
     <main>
       <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:12}}>
         <h2 style={{fontSize:22}}>Backlog (Tablero)</h2>
-        <Link href="/tickets/new" style={{fontSize:14, opacity:.8}}>→ Crear ticket</Link>
+        <div style={{display:'flex', gap:12}}>
+          <Link href="/dashboard" style={{fontSize:14, opacity:.8}}>📊 Dashboard</Link>
+          <Link href="/tickets/new" style={{fontSize:14, opacity:.8}}>→ Crear ticket</Link>
+        </div>
       </div>
 
       {/* Filtros arriba */}
@@ -89,7 +92,10 @@ export default function BoardPage(){
                 <article key={t.id} style={S.card}>
                   <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', gap:8}}>
                     <h3 style={{margin:0, fontSize:15}}>
-                      {t.titulo || "(Sin título)"} <span style={{opacity:.7}}>· {t.tipo}</span>
+                      <Link href={`/tickets/${t.id}`} style={{color:'#58a6ff', textDecoration:'none'}}>
+                        {t.titulo || "(Sin título)"}
+                      </Link>
+                      <span style={{opacity:.7}}> · {t.tipo}</span>
                     </h3>
                     <span style={{border:'1px solid #2b4470', padding:'2px 8px', borderRadius:6, fontSize:12}}>{t.prioridad}</span>
                   </div>

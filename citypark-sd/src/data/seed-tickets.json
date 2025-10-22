@@ -1,0 +1,402 @@
+[
+  {
+    "servicio": "reservas",
+    "tipo": "Incidente",
+    "prioridad": "P1",
+    "titulo": "Sistema de reservas caído - no se pueden hacer nuevas reservas",
+    "descripcion": "El sistema completo de reservas está inaccesible. Los usuarios reportan error 500 al intentar reservar espacios. Múltiples quejas en redes sociales. Pérdida de ingresos estimada en $5000/hora.",
+    "parqueo": "Todos los parqueos",
+    "contacto": "ops@citypark.com",
+    "etiquetas": ["backend/api", "infra/cloud"],
+    "estado": "In Progress",
+    "comentarios": [
+      {
+        "autor": "Juan Pérez",
+        "texto": "Estoy investigando el problema. El servidor de base de datos reporta alta latencia."
+      },
+      {
+        "autor": "María González",
+        "texto": "Escalando a equipo de infraestructura. Posible problema con el balanceador de carga."
+      }
+    ]
+  },
+  {
+    "servicio": "sensores",
+    "tipo": "Problema",
+    "prioridad": "P2",
+    "titulo": "Sensores de disponibilidad reportando datos inconsistentes",
+    "descripcion": "Los sensores en 3 parqueos muestran espacios ocupados cuando están vacíos y viceversa. Esto causa reservas fallidas y frustración en usuarios.",
+    "parqueo": "Plaza Central, Mall Norte, Zona Industrial",
+    "contacto": "iot-team@citypark.com",
+    "etiquetas": ["sensores/iot", "backend/api"],
+    "estado": "Open",
+    "comentarios": [
+      {
+        "autor": "Carlos Ruiz",
+        "texto": "Necesitamos recalibrar los sensores. Programando visita técnica para mañana."
+      }
+    ]
+  },
+  {
+    "servicio": "busqueda",
+    "tipo": "Solicitud",
+    "prioridad": "P3",
+    "titulo": "Agregar filtro de búsqueda por precio máximo",
+    "descripcion": "Los usuarios solicitan poder filtrar parqueos por precio máximo por hora. Actualmente solo pueden ordenar por precio pero no filtrar.",
+    "parqueo": "",
+    "contacto": "maria.gonzalez@citypark.com",
+    "etiquetas": ["frontend/app", "backend/api"],
+    "estado": "Open",
+    "comentarios": []
+  },
+  {
+    "servicio": "reportes",
+    "tipo": "Incidente",
+    "prioridad": "P2",
+    "titulo": "Dashboard de finanzas no carga datos del mes actual",
+    "descripcion": "Los propietarios no pueden ver sus ingresos del mes en curso. El dashboard muestra datos hasta el mes pasado solamente. Error en la consulta de agregación.",
+    "parqueo": "Afecta a todos los propietarios",
+    "contacto": "finanzas@citypark.com",
+    "etiquetas": ["datos/bi", "backend/api"],
+    "estado": "In Progress",
+    "comentarios": [
+      {
+        "autor": "Ana López",
+        "texto": "Identificado el problema en la query SQL. Desplegando fix ahora."
+      }
+    ]
+  },
+  {
+    "servicio": "cuentas",
+    "tipo": "Solicitud",
+    "prioridad": "P3",
+    "titulo": "Implementar autenticación con Google",
+    "descripcion": "Solicitud de múltiples usuarios para poder iniciar sesión con su cuenta de Google en lugar de crear una nueva cuenta.",
+    "parqueo": "",
+    "contacto": "support@citypark.com",
+    "etiquetas": ["auth/identidad", "frontend/app"],
+    "estado": "Open",
+    "comentarios": []
+  },
+  {
+    "servicio": "onboarding",
+    "tipo": "Problema",
+    "prioridad": "P2",
+    "titulo": "Nuevos propietarios no reciben email de confirmación",
+    "descripcion": "El proceso de onboarding está fallando en el envío de emails de confirmación. Los propietarios quedan en estado pendiente indefinidamente.",
+    "parqueo": "",
+    "contacto": "onboarding@citypark.com",
+    "etiquetas": ["backend/api", "infra/cloud"],
+    "estado": "Open",
+    "comentarios": [
+      {
+        "autor": "Sofia Herrera",
+        "texto": "Verificando configuración del servicio de email. API key podría estar vencida."
+      }
+    ]
+  },
+  {
+    "servicio": "plataforma",
+    "tipo": "Incidente",
+    "prioridad": "P1",
+    "titulo": "App móvil crashea al abrir mapa en iOS 17",
+    "descripcion": "La aplicación se cierra inesperadamente al intentar abrir el mapa de parqueos en dispositivos con iOS 17. Afecta al 30% de usuarios de iPhone.",
+    "parqueo": "",
+    "contacto": "mobile-team@citypark.com",
+    "etiquetas": ["frontend/app"],
+    "estado": "In Progress",
+    "comentarios": [
+      {
+        "autor": "Diego Morales",
+        "texto": "Bug en librería de mapas. Actualizando a la última versión."
+      },
+      {
+        "autor": "Diego Morales",
+        "texto": "Fix listo, enviando a App Store para revisión. ETA: 2-3 días."
+      }
+    ]
+  },
+  {
+    "servicio": "reservas",
+    "tipo": "Solicitud",
+    "prioridad": "P4",
+    "titulo": "Permitir reservas recurrentes semanales",
+    "descripcion": "Los usuarios corporativos solicitan poder hacer reservas recurrentes (ej: todos los lunes 8am-6pm) en lugar de reservar semana por semana.",
+    "parqueo": "",
+    "contacto": "corporate@citypark.com",
+    "etiquetas": ["backend/api", "frontend/app"],
+    "estado": "Open",
+    "comentarios": []
+  },
+  {
+    "servicio": "sensores",
+    "tipo": "Incidente",
+    "prioridad": "P3",
+    "titulo": "Sensor de temperatura reportando valores anómalos",
+    "descripcion": "Un sensor en estacionamiento subterráneo reporta temperaturas de 60°C, claramente incorrectas. Puede ser falla de hardware o calibración.",
+    "parqueo": "Mall Subterráneo",
+    "contacto": "maintenance@citypark.com",
+    "etiquetas": ["sensores/iot"],
+    "estado": "Open",
+    "comentarios": [
+      {
+        "autor": "Laura Vega",
+        "texto": "Sensor requiere reemplazo. Ordenando nuevo hardware."
+      }
+    ]
+  },
+  {
+    "servicio": "busqueda",
+    "tipo": "Problema",
+    "prioridad": "P2",
+    "titulo": "Búsqueda por dirección no encuentra parqueos cercanos",
+    "descripcion": "El algoritmo de búsqueda geoespacial está retornando resultados a más de 5km de distancia cuando hay parqueos disponibles a 500m.",
+    "parqueo": "",
+    "contacto": "backend-team@citypark.com",
+    "etiquetas": ["backend/api"],
+    "estado": "Resolved",
+    "comentarios": [
+      {
+        "autor": "Luis Torres",
+        "texto": "Problema en el índice geoespacial. Reconstruido exitosamente."
+      },
+      {
+        "autor": "Luis Torres",
+        "texto": "Confirmado resuelto. Búsquedas funcionando correctamente ahora."
+      }
+    ]
+  },
+  {
+    "servicio": "reportes",
+    "tipo": "Solicitud",
+    "prioridad": "P3",
+    "titulo": "Exportar reportes en formato Excel",
+    "descripcion": "Los propietarios solicitan poder descargar sus reportes financieros en formato Excel (.xlsx) además del PDF actual.",
+    "parqueo": "",
+    "contacto": "finanzas@citypark.com",
+    "etiquetas": ["backend/api", "datos/bi"],
+    "estado": "Open",
+    "comentarios": []
+  },
+  {
+    "servicio": "cuentas",
+    "tipo": "Incidente",
+    "prioridad": "P2",
+    "titulo": "Conductores no pueden actualizar método de pago",
+    "descripcion": "El formulario de actualización de tarjeta de crédito muestra error 'Invalid token' al intentar guardar. Afecta a ~50 usuarios.",
+    "parqueo": "",
+    "contacto": "payments@citypark.com",
+    "etiquetas": ["frontend/app", "pagos", "backend/api"],
+    "estado": "In Progress",
+    "comentarios": [
+      {
+        "autor": "Ana López",
+        "texto": "Problema con el tokenizador de Stripe. Contactando soporte técnico."
+      }
+    ]
+  },
+  {
+    "servicio": "onboarding",
+    "tipo": "Solicitud",
+    "prioridad": "P4",
+    "titulo": "Mejorar tutorial de primer uso para propietarios",
+    "descripcion": "Los propietarios nuevos tienen dificultad entendiendo cómo publicar su primer parqueo. Agregar video tutorial o tour interactivo.",
+    "parqueo": "",
+    "contacto": "ux-team@citypark.com",
+    "etiquetas": ["frontend/app"],
+    "estado": "Open",
+    "comentarios": []
+  },
+  {
+    "servicio": "plataforma",
+    "tipo": "Problema",
+    "prioridad": "P3",
+    "titulo": "Performance degradada en horas pico (7-9am)",
+    "descripcion": "La aplicación tiene tiempos de respuesta de 5-10 segundos durante horas pico matutinas. Necesitamos optimizar queries y considerar caching.",
+    "parqueo": "",
+    "contacto": "devops@citypark.com",
+    "etiquetas": ["backend/api", "infra/cloud"],
+    "estado": "Open",
+    "comentarios": [
+      {
+        "autor": "Carlos Ruiz",
+        "texto": "Implementando Redis para cacheo de búsquedas frecuentes."
+      }
+    ]
+  },
+  {
+    "servicio": "reservas",
+    "tipo": "Incidente",
+    "prioridad": "P3",
+    "titulo": "Reservas canceladas no liberan el espacio inmediatamente",
+    "descripcion": "Cuando un usuario cancela una reserva, el espacio permanece bloqueado por ~15 minutos antes de estar disponible nuevamente.",
+    "parqueo": "Plaza Principal",
+    "contacto": "backend-team@citypark.com",
+    "etiquetas": ["backend/api"],
+    "estado": "Resolved",
+    "comentarios": [
+      {
+        "autor": "Juan Pérez",
+        "texto": "Fixed. Problema en el worker de liberación de espacios."
+      }
+    ]
+  },
+  {
+    "servicio": "sensores",
+    "tipo": "Solicitud",
+    "prioridad": "P4",
+    "titulo": "Dashboard en tiempo real de estado de sensores",
+    "descripcion": "El equipo de operaciones solicita un dashboard que muestre el estado (online/offline/error) de todos los sensores en tiempo real.",
+    "parqueo": "",
+    "contacto": "ops@citypark.com",
+    "etiquetas": ["frontend/app", "sensores/iot", "datos/bi"],
+    "estado": "Open",
+    "comentarios": []
+  },
+  {
+    "servicio": "busqueda",
+    "tipo": "Incidente",
+    "prioridad": "P4",
+    "titulo": "Imágenes de parqueos no cargan en búsqueda",
+    "descripcion": "Las fotos de los parqueos muestran imagen placeholder en lugar de las fotos reales. CDN podría estar teniendo problemas.",
+    "parqueo": "",
+    "contacto": "cdn-admin@citypark.com",
+    "etiquetas": ["frontend/app", "infra/cloud"],
+    "estado": "Closed",
+    "comentarios": [
+      {
+        "autor": "María González",
+        "texto": "CDN reiniciado. Imágenes cargando correctamente ahora."
+      }
+    ]
+  },
+  {
+    "servicio": "reportes",
+    "tipo": "Problema",
+    "prioridad": "P2",
+    "titulo": "Discrepancia en cálculo de comisiones",
+    "descripcion": "Algunos propietarios reportan que las comisiones calculadas no coinciden con lo acordado (15%). Parece afectar solo a reservas de más de 24 horas.",
+    "parqueo": "",
+    "contacto": "finanzas@citypark.com",
+    "etiquetas": ["backend/api", "datos/bi"],
+    "estado": "In Progress",
+    "comentarios": [
+      {
+        "autor": "Sofia Herrera",
+        "texto": "Encontrado el bug. Reservas largas calculaban comisión diaria en lugar de sobre el total."
+      },
+      {
+        "autor": "Sofia Herrera",
+        "texto": "Fix en testing. Compensaremos a propietarios afectados."
+      }
+    ]
+  },
+  {
+    "servicio": "cuentas",
+    "tipo": "Solicitud",
+    "prioridad": "P4",
+    "titulo": "Permitir vinculación de múltiples vehículos por conductor",
+    "descripcion": "Los conductores con más de un vehículo solicitan poder guardar las placas de todos sus autos en lugar de tener que escribirla cada vez.",
+    "parqueo": "",
+    "contacto": "support@citypark.com",
+    "etiquetas": ["backend/api", "frontend/app"],
+    "estado": "Open",
+    "comentarios": []
+  },
+  {
+    "servicio": "onboarding",
+    "tipo": "Incidente",
+    "prioridad": "P3",
+    "titulo": "Validación de documentos KYC tarda más de 48 horas",
+    "descripcion": "El proceso de verificación de identidad de nuevos propietarios está tardando 2-3 días cuando debería ser máximo 24 horas. Cuello de botella en revisión manual.",
+    "parqueo": "",
+    "contacto": "compliance@citypark.com",
+    "etiquetas": ["backend/api"],
+    "estado": "Open",
+    "comentarios": [
+      {
+        "autor": "Diego Morales",
+        "texto": "Contratando más personal para equipo de compliance."
+      }
+    ]
+  },
+  {
+    "servicio": "plataforma",
+    "tipo": "Solicitud",
+    "prioridad": "P3",
+    "titulo": "Implementar modo oscuro en la aplicación web",
+    "descripcion": "Múltiples usuarios solicitan un tema oscuro para la aplicación web, especialmente para uso nocturno.",
+    "parqueo": "",
+    "contacto": "ux-team@citypark.com",
+    "etiquetas": ["frontend/app"],
+    "estado": "Open",
+    "comentarios": []
+  },
+  {
+    "servicio": "reservas",
+    "tipo": "Problema",
+    "prioridad": "P1",
+    "titulo": "Pagos procesados dos veces en algunas reservas",
+    "descripcion": "CRÍTICO: Algunos usuarios reportan doble cargo en su tarjeta. Parece ser un problema de idempotencia en el procesador de pagos. Afecta ~5% de transacciones.",
+    "parqueo": "Varios parqueos",
+    "contacto": "payments-urgent@citypark.com",
+    "etiquetas": ["backend/api", "pagos"],
+    "estado": "In Progress",
+    "comentarios": [
+      {
+        "autor": "Ana López",
+        "texto": "URGENTE: Deshabilitando reintentos automáticos mientras investigamos."
+      },
+      {
+        "autor": "Luis Torres",
+        "texto": "Implementando idempotency keys. Reembolsando cargos duplicados."
+      }
+    ]
+  },
+  {
+    "servicio": "sensores",
+    "tipo": "Incidente",
+    "prioridad": "P2",
+    "titulo": "Pérdida de conexión con sensores durante lluvia",
+    "descripcion": "Los sensores en parqueos al aire libre pierden conectividad cuando llueve fuerte. Posible problema de impermeabilización o señal.",
+    "parqueo": "Parqueo Norte, Plaza Abierta",
+    "contacto": "hardware@citypark.com",
+    "etiquetas": ["sensores/iot", "infra/cloud"],
+    "estado": "Open",
+    "comentarios": [
+      {
+        "autor": "Carlos Ruiz",
+        "texto": "Revisando sellado de carcasas. Algunos sensores tienen entrada de agua."
+      }
+    ]
+  },
+  {
+    "servicio": "busqueda",
+    "tipo": "Solicitud",
+    "prioridad": "P4",
+    "titulo": "Filtro por amenidades (techado, vigilancia, carga eléctrica)",
+    "descripcion": "Los usuarios solicitan poder filtrar parqueos por amenidades específicas como techo, vigilancia 24/7, o puntos de carga para vehículos eléctricos.",
+    "parqueo": "",
+    "contacto": "product@citypark.com",
+    "etiquetas": ["frontend/app", "backend/api"],
+    "estado": "Open",
+    "comentarios": []
+  },
+  {
+    "servicio": "reportes",
+    "tipo": "Incidente",
+    "prioridad": "P3",
+    "titulo": "Gráfica de ocupación muestra datos del año pasado",
+    "descripcion": "La gráfica de porcentaje de ocupación en el dashboard de propietarios está mostrando datos de 2024 en lugar de 2025.",
+    "parqueo": "",
+    "contacto": "datos@citypark.com",
+    "etiquetas": ["datos/bi", "frontend/app"],
+    "estado": "Resolved",
+    "comentarios": [
+      {
+        "autor": "María González",
+        "texto": "Filtro de fecha estaba hardcoded. Corregido y desplegado."
+      }
+    ]
+  }
+]

@@ -43,7 +43,10 @@ export default function CreateTicketPage(){
     <main>
       <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:12}}>
         <h2 style={{fontSize:22}}>Crear ticket</h2>
-        <Link href="/tickets" style={{fontSize:14, opacity:.8}}>→ Ir al backlog</Link>
+        <div style={{display:'flex', gap:12}}>
+          <Link href="/dashboard" style={{fontSize:14, opacity:.8}}>📊 Dashboard</Link>
+          <Link href="/tickets" style={{fontSize:14, opacity:.8}}>→ Ir al backlog</Link>
+        </div>
       </div>
       <p style={{opacity:.8, marginTop:0}}>Categoría principal = <b>Servicio</b>. Etiquetas técnicas para ruteo interno.</p>
 
