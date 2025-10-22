@@ -12,6 +12,9 @@ const SERVICES = [
   { value: "plataforma", label: "Plataforma/App (Disponibilidad y Rendimiento)" },
 ];
 
+const priorityOrder = { High: 3, Medium: 2, Low: 1 };
+
+
 export default function DashboardPage() {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -98,11 +101,13 @@ export default function DashboardPage() {
         <section style={S.chartSection}>
           <h3 style={S.chartTitle}>Tickets por Estado</h3>
           <BarChart
-            data={Object.entries(stats.byState).map(([key, value]) => ({
-              label: key,
-              value,
-              color: getStateColor(key),
-            }))}
+            data={Object.entries(stats.byPriority)
+              .sort((a, b) => priorityOrder[b[0]] - priorityOrder[a[0]])
+              .map(([key, value]) => ({
+                label: key,
+                value,
+                color: getPriorityColor(key),
+              }))}
           />
         </section>
 
@@ -312,10 +317,9 @@ function getStateColor(state) {
 
 function getPriorityColor(priority) {
   const colors = {
-    "P1": "#f85149",
-    "P2": "#ff8c42",
-    "P3": "#ffc107",
-    "P4": "#56d364",
+    "High": "#f85149",
+    "Medium": "#ffc107",
+    "Low": "#56d364",
   };
   return colors[priority] || "#58a6ff";
 }

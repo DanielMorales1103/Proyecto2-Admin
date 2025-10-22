@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 
 const SERVICES = [
@@ -11,17 +11,53 @@ const SERVICES = [
   { value: "onboarding", label: "Onboarding y Visibilidad de Parqueos (Marketplace)" },
   { value: "plataforma", label: "Plataforma/App (Disponibilidad y Rendimiento)" },
 ];
-const TAGS = ["frontend/app","backend/api","infra/cloud","sensores/iot","datos/bi","auth/identidad","pagos"];
 const TYPES = ["Incidente","Solicitud","Problema"];
+
+const PRIORITIES = ["Low", "Medium", "High"];
+
 
 export default function CreateTicketPage(){
   const [form, setForm] = useState({
     servicio:"reservas", tipo:"Incidente", etiquetas:[],
-    prioridad:"P3", titulo:"", descripcion:"", parqueo:"", contacto:""
+     prioridad:"Medium", titulo:"", descripcion:"", parqueo:"", contacto:""
   });
   const [loading, setLoading] = useState(false);
   const [okId, setOkId] = useState(null);
   const [err, setErr] = useState("");
+  const [gitlabLabels, setGitlabLabels] = useState([]);
+  const [labelsLoading, setLabelsLoading] = useState(true);
+
+useEffect(() => {
+  (async () => {
+    try {
+      const res = await fetch("/api/gitlab/labels", { cache: "no-store" });
+      if (!res.ok) {
+        const txt = await res.text();
+        console.warn("Labels fetch failed:", res.status, txt);
+        setGitlabLabels([]);
+      } else {
+        const data = await res.json();
+        // 🔽 Filtrar labels que NO sean de prioridad
+        const filtered = (data.labels || []).filter(
+          l => !/^priority::/i.test(l.name)
+        );
+        setGitlabLabels(filtered);
+      }
+    } catch (e) {
+      console.error("Labels fetch error:", e);
+      setGitlabLabels([]);
+    } finally {
+      setLabelsLoading(false);
+    }
+  })();
+}, []);
+
+  function toggleLabel(name){
+    setForm(s => {
+      const has = s.etiquetas.includes(name);
+      return { ...s, etiquetas: has ? s.etiquetas.filter(x=>x!==name) : [...s.etiquetas, name] };
+    });
+  }
 
   async function onSubmit(e){
     e.preventDefault();
@@ -31,7 +67,7 @@ export default function CreateTicketPage(){
         method:"POST", headers:{"Content-Type":"application/json"},
         body: JSON.stringify(form)
       });
-      const data = await res.json();
+      const data = await res.json().catch(()=>({}));
       if(!res.ok) throw new Error(data?.error || "Error");
       setOkId(data.id);
       setForm({servicio:"reservas",tipo:"Incidente",etiquetas:[],prioridad:"P3",titulo:"",descripcion:"",parqueo:"",contacto:""});
@@ -48,7 +84,7 @@ export default function CreateTicketPage(){
           <Link href="/tickets" style={{fontSize:14, opacity:.8}}>→ Ir al backlog</Link>
         </div>
       </div>
-      <p style={{opacity:.8, marginTop:0}}>Categoría principal = <b>Servicio</b>. Etiquetas técnicas para ruteo interno.</p>
+      <p style={{opacity:.8, marginTop:0}}>Categoría principal = <b>Servicio</b>. Etiquetas técnicas vienen de tus <b>GitLab Labels</b>.</p>
 
       <form onSubmit={onSubmit} style={S.form}>
         <div style={S.row2}>
@@ -67,24 +103,53 @@ export default function CreateTicketPage(){
         </div>
 
         <div>
-          <label>Etiquetas técnicas</label>
-          <div style={{display:'flex', flexWrap:'wrap', gap:8}}>
-            {TAGS.map(tag=>(
-              <button type="button" key={tag}
-                onClick={()=> setForm(s=> ({...s, etiquetas: s.etiquetas.includes(tag) ? s.etiquetas.filter(x=>x!==tag) : [...s.etiquetas, tag]}))}
-                style={{padding:'6px 10px', borderRadius:999, border:'1px solid #22406d',
-                        background: form.etiquetas.includes(tag)?'#1f6feb':'transparent',
-                        color: form.etiquetas.includes(tag)?'#fff':'#e6edf3', cursor:'pointer'}}
-              >{tag}</button>
-            ))}
-          </div>
+          <label>Etiquetas técnicas (GitLab)</label>
+          {labelsLoading ? (
+            <div style={{opacity:.7, fontSize:13}}>Cargando etiquetas…</div>
+          ) : gitlabLabels.length === 0 ? (
+            <div style={{opacity:.7, fontSize:13}}>
+              No hay labels en el proyecto. Crea algunas en GitLab → Project → Labels.
+            </div>
+          ) : (
+            <div style={{display:'flex', flexWrap:'wrap', gap:8}}>
+              {gitlabLabels.map(l => {
+                const selected = form.etiquetas.includes(l.name);
+                return (
+                  <button
+                    type="button"
+                    key={l.id}
+                    onClick={()=> toggleLabel(l.name)}
+                    title={l.description || l.name}
+                    style={{
+                      padding:'6px 10px',
+                      borderRadius:999,
+                      border:'1px solid #22406d',
+                      background: selected ? '#1f6feb' : 'transparent',
+                      color: selected ? '#fff' : '#e6edf3',
+                      cursor:'pointer',
+                      display:'inline-flex',
+                      alignItems:'center',
+                      gap:6
+                    }}
+                  >
+                    {/* indicador de color del label */}
+                    <span style={{
+                      width:10, height:10, borderRadius:'50%',
+                      background: l.color || '#1f6feb', display:'inline-block'
+                    }} />
+                    {l.name}
+                  </button>
+                );
+              })}
+            </div>
+          )}
         </div>
 
         <div style={S.row2}>
           <div>
             <label>Prioridad</label>
             <select value={form.prioridad} onChange={e=>setForm(s=>({...s,prioridad:e.target.value}))} style={S.select}>
-              {['P1','P2','P3','P4'].map(p=> <option key={p} value={p}>{p}</option>)}
+              {PRIORITIES.map(p => <option key={p} value={p}>{p}</option>)}
             </select>
           </div>
           <div>

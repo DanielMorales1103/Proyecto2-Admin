@@ -20,11 +20,31 @@ export default function BoardPage(){
   const [filterType, setFilterType] = useState("all");
   const [savingId, setSavingId] = useState(null);
 
-  async function fetchTickets(){
+ async function fetchTickets(){
+  try {
     const res = await fetch("/api/tickets", { cache:"no-store" });
-    const data = await res.json();
-    setTickets(data.tickets || []);
+    if (!res.ok) {
+      // intenta obtener texto para loguear
+      const txt = await res.text();
+      console.warn("GET /api/tickets failed:", res.status, txt);
+      setTickets([]); // fallback
+      return;
+    }
+    // si el body estuviera vacío por alguna razón, protege el json()
+    let data = null;
+    try {
+      data = await res.json();
+    } catch {
+      console.warn("Empty/invalid JSON from /api/tickets");
+      data = { tickets: [] };
+    }
+    setTickets(Array.isArray(data.tickets) ? data.tickets : []);
+  } catch (err) {
+    console.error("fetchTickets error:", err);
+    setTickets([]); // fallback
   }
+}
+
   useEffect(()=>{ fetchTickets(); },[]);
 
   const filtered = useMemo(()=>(
@@ -112,19 +132,6 @@ export default function BoardPage(){
                     </div>
                   )}
                   {t.descripcion && <p style={{opacity:.9, fontSize:13}}>{t.descripcion}</p>}
-
-                  <div style={{display:'flex', gap:8, alignItems:'center', marginTop:8}}>
-                    <label style={{fontSize:12, opacity:.8}}>Estado:</label>
-                    <select
-                      value={t.estado}
-                      onChange={e=>changeState(t.id, e.target.value)}
-                      disabled={savingId===t.id}
-                      style={{...S.select, width:'auto', fontSize:12, padding:'6px 8px'}}
-                    >
-                      {STATES.map(s => <option key={s} value={s}>{s}</option>)}
-                    </select>
-                    {savingId===t.id && <span style={{fontSize:12, opacity:.7}}>Guardando…</span>}
-                  </div>
 
                   <div style={{opacity:.6, fontSize:11, marginTop:6}}>
                     Creado: {new Date(t.createdAt).toLocaleString()}
