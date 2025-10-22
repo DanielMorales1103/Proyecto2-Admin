@@ -23,7 +23,7 @@ export async function POST(req) {
     descripcion: (body.descripcion || "").slice(0, 5000),
     parqueo: (body.parqueo || "").slice(0, 120),
     contacto: (body.contacto || "").slice(0, 120),
-    estado: "Nuevo",
+    estado: "Open",
     createdAt: now,
   };
 
